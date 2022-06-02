@@ -3,6 +3,8 @@ project(httpcode)
 
 set(CMAKE_CXX_STANDARD 20)
 
+add_executable(httpcode src/httpcode/main.cpp)
+
 # Build tests using: `cmake -DBUILD_TESTS=ON`
 option(BUILD_TESTS "Build unit tests" OFF)
 if (BUILD_TESTS)
