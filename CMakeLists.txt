@@ -3,7 +3,10 @@ project(httpcode)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(httpcode src/httpcode/main.cpp)
+find_package(tl-expected CONFIG REQUIRED)
+
+add_executable(httpcode src/httpcode/main.cpp src/httpcode/codes.h)
+target_link_libraries(httpcode PRIVATE tl::expected)
 
 # Build tests using: `cmake -DBUILD_TESTS=ON`
 option(BUILD_TESTS "Build unit tests" OFF)
