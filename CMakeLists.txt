@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(tl-expected CONFIG REQUIRED)
 
-add_executable(httpcode src/httpcode/main.cpp src/httpcode/codes.h)
+add_executable(httpcode
+        src/httpcode/main.cpp
+        src/httpcode/util.cpp)
 target_link_libraries(httpcode PRIVATE tl::expected)
 
 # Build tests using: `cmake -DBUILD_TESTS=ON`

@@ -9,7 +9,7 @@ namespace httpcode {
 using description =
     std::tuple<std::string_view, std::string_view, std::string_view>;
 
-// Map consisting of HTTP codes and their respective descriptions. Each
+// Map consisting of HTTP status codes and their respective descriptions. Each
 // description  contains a short description (e.g. 'OK'), a longer description
 // (e.g. 'The request has succeeded.'), and a URL to learn more about the given
 // HTTP status code (e.g. `https://httpstatuses.io/200`). Each entry in the map
