@@ -9,7 +9,7 @@ find_package(tl-expected CONFIG REQUIRED)
 
 add_executable(httpcode
         src/httpcode/main.cpp
-        src/httpcode/util.cpp)
+        src/httpcode/codes.hpp)
 target_link_libraries(httpcode PRIVATE tl::expected)
 
 # Build tests using: `cmake -DBUILD_TESTS=ON`
