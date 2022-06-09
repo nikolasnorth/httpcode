@@ -7,7 +7,7 @@ HTTP Code is a minimal command line application that displays information about 
 ## Usage
 
 ```bash
-$ httpcode <code> | list [<category_name>]
+> httpcode <code> | list [<category_name>]
 ```
 
 Valid category names are: informational, success, redirection, client-error, and server-error.
