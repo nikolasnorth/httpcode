@@ -12,13 +12,32 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  const auto code = httpcode::to_digit(std::string_view(argv[1]));
-  if (!code.has_value() || !httpcode::codes.contains(*code)) {
+  const std::string_view arg1 = argv[1];
+  const auto code = httpcode::to_digit(arg1);
+  if (code.has_value() && httpcode::codes.contains(*code)) {
+    const auto& [short_desc, long_desc, url] = httpcode::codes.at(*code);
+    std::cout << httpcode::format_output(*code, short_desc, long_desc, url);
+    return 0;
+  } else if (code.has_value()) {
+    // HTTP code does not exist.
     std::cerr << httpcode::invalid_code;
     std::cerr << httpcode::usage;
     return 1;
   }
 
-  const auto& [short_desc, long_desc, url] = httpcode::codes.at(*code);
-  std::cout << httpcode::format_output(*code, short_desc, long_desc, url);
+  if (arg1 == "list" && argc == 3) {
+    const std::string_view category = argv[2];
+    const auto output = httpcode::list_all_codes_for_category(category);
+    if (!output.has_value()) {
+      std::cerr << httpcode::invalid_category;
+    }
+    std::cout << *output;
+    return 0;
+  } else if (arg1 == "list") {
+    std::cout << httpcode::list_all_codes();
+    return 0;
+  } else {
+    std::cerr << "Error: Invalid command " << arg1 << '\n';
+    std::cerr << httpcode::usage;
+  }
 }
