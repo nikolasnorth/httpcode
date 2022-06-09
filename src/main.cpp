@@ -45,7 +45,7 @@ static const std::map<unsigned int, description> codes = {
       "informational response.",
       "https://httpstatuses.io/103"}},
     {200,
-     {"Continue", "The request has succeeded.", "https://httpstatuses.io/200"}},
+     {"OK", "The request has succeeded.", "https://httpstatuses.io/200"}},
     {201,
      {"Created",
       "The request has been fulfilled and has resulted in one or more new "
@@ -402,7 +402,8 @@ static constexpr std::string_view invalid_category =
     "Error: Invalid HTTP status category name. Valid names are informational, "
     "success, redirection, client-error, and server-error.\n";
 
-static constexpr std::string_view usage = "Usage: httpcode <code>\n";
+static constexpr std::string_view usage =
+    "Usage: httpcode <code> | list [<category-name>]\n";
 
 /// Utility functions
 
@@ -426,7 +427,9 @@ std::string format_output(unsigned int code, std::string_view short_desc,
 
 std::string list_all_codes() noexcept {
   std::ostringstream oss;
-  oss << "HTTP Status Codes:\n";
+  oss << "-----------------\n"
+      << "HTTP Status Codes\n"
+      << "-----------------\n";
   for (const auto& [code, desc] : codes) {
     const auto& [short_desc, _1, _2] = desc;
     oss << code << " " << short_desc << '\n';
@@ -442,23 +445,33 @@ tl::expected<std::string, std::exception> list_all_codes_for_category(
   if (category == "informational") {
     lo = codes.lower_bound(100);
     hi = codes.upper_bound(199);
-    oss << "HTTP Status Codes – Informational:\n";
+    oss << "-----------------\n"
+        << "1xx Informational\n"
+        << "-----------------\n";
   } else if (category == "success") {
     lo = codes.lower_bound(200);
     hi = codes.upper_bound(299);
-    oss << "HTTP Status Codes – Success:\n";
+    oss << "-----------\n"
+        << "2xx Success\n"
+        << "-----------\n";
   } else if (category == "redirection") {
     lo = codes.lower_bound(300);
     hi = codes.upper_bound(399);
-    oss << "HTTP Status Codes – Success:\n";
+    oss << "---------------\n"
+        << "3xx Redirection\n"
+        << "---------------\n";
   } else if (category == "client-error") {
     lo = codes.lower_bound(400);
     hi = codes.upper_bound(499);
-    oss << "HTTP Status Codes – Client Error:\n";
+    oss << "----------------\n"
+        << "4xx Client Error\n"
+        << "----------------\n";
   } else if (category == "server-error") {
     lo = codes.lower_bound(500);
     hi = codes.upper_bound(599);
-    oss << "HTTP Status Codes – Server Error:\n";
+    oss << "-----------------\n"
+        << "5xx Server Error:\n"
+        << "-----------------\n";
   } else {
     return tl::make_unexpected(std::invalid_argument("Invalid category name."));
   }
