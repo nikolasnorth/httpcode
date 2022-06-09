@@ -506,7 +506,10 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  if (arg1 == "list" && argc == 3) {
+  if (arg1 == "help") {
+    std::cout << httpcode::usage;
+    return 0;
+  } else if (arg1 == "list" && argc == 3) {
     const std::string_view category = argv[2];
     const auto output = httpcode::list_all_codes_for_category(category);
     if (!output.has_value()) {
@@ -518,7 +521,7 @@ int main(int argc, char* argv[]) {
     std::cout << httpcode::list_all_codes();
     return 0;
   } else {
-    std::cerr << "Error: Invalid command " << arg1 << '\n';
+    std::cerr << "Error: Invalid command '" << arg1 << "'\n";
     std::cerr << httpcode::usage;
   }
 }
