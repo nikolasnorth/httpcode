@@ -3,6 +3,8 @@ project(httpcode)
 
 set(CMAKE_CXX_STANDARD 20)
 
+add_compile_options(-Wall -Wextra -Werror)
+
 find_package(tl-expected CONFIG REQUIRED)
 
 add_executable(httpcode
